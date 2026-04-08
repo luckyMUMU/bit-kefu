@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cranged001"]
+
+[ext_resource type="Script" path="res://scripts/ranged_weapon.gd" id="1_ranged"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(20, 8)
+
+[node name="RangedWeapon" type="Node2D"]
+script = ExtResource("1_ranged")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.3, 0.3, 0.3, 1)
+
+[node name="MuzzlePoint" type="Marker2D" parent="."]
+position = Vector2(20, 0)
