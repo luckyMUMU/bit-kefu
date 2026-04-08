@@ -13,6 +13,7 @@ var base_facilities: Dictionary = {}
 var corpses: Array = []
 var inventory: Inventory
 var stats: PlayerStats
+var tutorial_completed: bool = false
 
 func _init() -> void:
 	inventory = Inventory.new()
@@ -77,7 +78,7 @@ func add_corpse(zone_id: String, position: Vector2, items: Array) -> void:
 
 func remove_corpse(index: int) -> Array:
 	if index >= 0 and index < corpses.size():
-		var corpse := corpses[index]
+		var corpse: Dictionary = corpses[index]
 		corpses.remove_at(index)
 		return corpse.get("items", [])
 	return []

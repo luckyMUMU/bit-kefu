@@ -74,7 +74,8 @@ func _apply_damage_to_target(target: Node2D) -> void:
 		var stats = owner_entity.get("stats")
 		if stats and stats is PlayerStats:
 			damage = stats.get_total_damage(damage)
-			var crit := stats.roll_critical()
+			# 修复4.6.2类型推断严格化问题：显式指定Dictionary类型
+			var crit: Dictionary = stats.roll_critical()
 			if crit.critical:
 				damage *= crit.multiplier
 	

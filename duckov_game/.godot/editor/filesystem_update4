@@ -1,0 +1,6 @@
+res://scripts/ui/game_hud.gd
+res://autoload/game_manager.gd
+res://scripts/ui/main_menu.gd
+res://scripts/ui/pause_menu.gd
+res://scripts/ui/tutorial_overlay.gd
+res://scripts/zones/tutorial_zone.gd

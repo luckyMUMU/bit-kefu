@@ -1,0 +1,177 @@
+[gd_scene load_steps=12 format=3 uid="uid://ctutorial001"]
+
+[ext_resource type="Script" path="res://scripts/zones/tutorial_zone.gd" id="1_tzone"]
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://scenes/ui/game_hud.tscn" id="3_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/tutorial_overlay.tscn" id="4_tutov"]
+[ext_resource type="Script" path="res://scripts/training_target.gd" id="5_target"]
+[ext_resource type="Script" path="res://scripts/extraction_point.gd" id="6_extract"]
+[ext_resource type="Script" path="res://scripts/loot_container.gd" id="7_loot"]
+
+[sub_resource type="RectangleShape2D" id="RectShape_move"]
+size = Vector2(80, 80)
+
+[sub_resource type="CircleShape2D" id="CircleShape_extr"]
+radius = 60.0
+
+[sub_resource type="RectangleShape2D" id="RectShape_combat_h"]
+size = Vector2(400, 20)
+
+[sub_resource type="RectangleShape2D" id="RectShape_combat_v"]
+size = Vector2(20, 300)
+
+[sub_resource type="RectangleShape2D" id="RectShape_boundary_h"]
+size = Vector2(1640, 40)
+
+[sub_resource type="RectangleShape2D" id="RectShape_boundary_v"]
+size = Vector2(40, 760)
+
+# ===== 主节点 =====
+[node name="TutorialZone" type="Node2D"]
+script = ExtResource("1_tzone")
+
+# ===== 地面 TileMap =====
+[node name="TileMap" type="TileMap" parent="."]
+format = 1
+
+# ===== 出生点 (150, 200) - 安全出生区 =====
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(150, 200)
+
+# ===== TutorialOverlay 教学覆盖层 =====
+[node name="TutorialOverlay" parent="." instance=ExtResource("4_tutov")]
+
+# ===== GameHUD =====
+[node name="GameHUD" parent="." instance=ExtResource("3_hud")]
+
+# ===== TimeManager =====
+[node name="TimeManager" type="Node" parent="."]
+script = load("res://scripts/time_manager.gd")
+
+# ===== 玩家实例 =====
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(150, 200)
+
+# ===== 区域1: 移动训练目标 (500, 200) =====
+[node name="MoveTarget" type="Area2D" parent="."]
+position = Vector2(500, 200)
+collision_layer = 64
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MoveTarget"]
+shape = SubResource("RectShape_move")
+
+[node name="Sprite2D" type="Sprite2D" parent="MoveTarget"]
+modulate = Color(0.2, 0.8, 0.2, 0.5)
+
+[node name="Label" type="Label" parent="MoveTarget"]
+offset_left = -40.0
+offset_top = -50.0
+offset_right = 40.0
+offset_bottom = -30.0
+text = "移动目标"
+horizontal_alignment = 1
+
+# ===== 区域2: 攻击靶场靶标 (900, 200) =====
+[node name="TrainingTarget" type="Node2D" parent="."]
+position = Vector2(900, 200)
+script = ExtResource("5_target")
+
+[node name="Sprite2D" type="Sprite2D" parent="TrainingTarget"]
+modulate = Color(1, 0.3, 0.3, 1)
+
+[node name="HitArea" type="Area2D" parent="TrainingTarget"]
+collision_layer = 128
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TrainingTarget/HitArea"]
+shape = SubResource("RectShape_move")
+
+[node name="Label" type="Label" parent="TrainingTarget"]
+offset_left = -30.0
+offset_top = -50.0
+offset_right = 30.0
+offset_bottom = -30.0
+text = "靶标"
+horizontal_alignment = 1
+
+# ===== 区域3: 搜刮区战利品箱 (500, 500) =====
+[node name="TutorialLoot" type="Area2D" parent="."]
+position = Vector2(500, 500)
+collision_layer = 32
+collision_mask = 1
+script = ExtResource("7_loot")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TutorialLoot"]
+
+[node name="Sprite2D" type="Sprite2D" parent="TutorialLoot"]
+modulate = Color(0.8, 0.6, 0.2, 1)
+
+[node name="InteractionLabel" type="Label" parent="TutorialLoot"]
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = -20.0
+text = "[E] 搜刮"
+horizontal_alignment = 1
+
+# ===== 区域4: 战斗区敌人生成点 + 围栏 =====
+[node name="EnemySpawns" type="Node2D" parent="."]
+
+[node name="TutorialEnemySpawn" type="Marker2D" parent="EnemySpawns"]
+position = Vector2(900, 500)
+
+# 战斗区边界墙（防止敌人跑出）
+[node name="CombatWalls" type="StaticBody2D" parent="."]
+position = Vector2(900, 500)
+
+[node name="TopWall" type="CollisionShape2D" parent="CombatWalls"]
+position = Vector2(0, -150)
+shape = SubResource("RectShape_combat_h")
+
+[node name="BottomWall" type="CollisionShape2D" parent="CombatWalls"]
+position = Vector2(0, 150)
+shape = SubResource("RectShape_combat_h")
+
+[node name="LeftWall" type="CollisionShape2D" parent="CombatWalls"]
+position = Vector2(-200, 0)
+shape = SubResource("RectShape_combat_v")
+
+[node name="RightWall" type="CollisionShape2D" parent="CombatWalls"]
+position = Vector2(200, 0)
+shape = SubResource("RectShape_combat_v")
+
+# ===== 区域5: 撤离点 (1350, 600) - 默认关闭 =====
+[node name="ExtractionZone" type="Area2D" parent="."]
+position = Vector2(1350, 600)
+collision_layer = 256
+collision_mask = 1
+script = ExtResource("6_extract")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExtractionZone"]
+shape = SubResource("CircleShape_extr")
+
+[node name="Sprite2D" type="Sprite2D" parent="ExtractionZone"]
+modulate = Color(0.2, 0.8, 0.2, 0.3)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ExtractionZone"]
+emitting = false
+
+# ===== 训练场边界墙壁（防止走出） =====
+[node name="BoundaryWalls" type="StaticBody2D" parent="."]
+
+[node name="NorthWall" type="CollisionShape2D" parent="BoundaryWalls"]
+position = Vector2(800, -20)
+shape = SubResource("RectShape_boundary_h")
+
+[node name="SouthWall" type="CollisionShape2D" parent="BoundaryWalls"]
+position = Vector2(800, 740)
+shape = SubResource("RectShape_boundary_h")
+
+[node name="WestWall" type="CollisionShape2D" parent="BoundaryWalls"]
+position = Vector2(-20, 360)
+shape = SubResource("RectShape_boundary_v")
+
+[node name="EastWall" type="CollisionShape2D" parent="BoundaryWalls"]
+position = Vector2(1620, 360)
+shape = SubResource("RectShape_boundary_v")

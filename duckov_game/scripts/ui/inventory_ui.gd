@@ -13,8 +13,6 @@ signal item_selected(item: InventoryItem)
 signal item_used(item: InventoryItem)
 signal item_dropped(item: InventoryItem)
 
-const ITEM_SLOT_SCENE = preload("res://scenes/ui/item_slot.tscn")
-
 func _ready() -> void:
 	visible = false
 	GameEvents.on_inventory_changed.connect(_refresh_inventory)

@@ -20,6 +20,15 @@ var facing_direction: Vector2 = Vector2.DOWN
 var current_weapon: Weapon = null
 var nearby_interactables: Array = []
 
+var is_rolling: bool = false
+var roll_cooldown: float = 0.0
+var roll_timer: float = 0.0
+const ROLL_DURATION: float = 0.2
+const ROLL_DISTANCE: float = 150.0
+const ROLL_COOLDOWN: float = 1.0
+const IFRAME_DURATION: float = 0.3
+var original_collision_layer: int = 0
+
 signal health_changed(current: float, maximum: float)
 signal died
 signal weapon_changed(weapon: Weapon)
@@ -40,9 +49,15 @@ func _ready() -> void:
 		interaction_area.area_exited.connect(_on_interaction_area_area_exited)
 
 func _physics_process(delta: float) -> void:
+	_process_roll_cooldown(delta)
+
 	if not is_alive or not can_move:
 		return
-	
+
+	if is_rolling:
+		move_and_slide()
+		return
+
 	var input_direction := _get_input_direction()
 	
 	if input_direction != Vector2.ZERO:
@@ -63,7 +78,10 @@ func _process(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed("attack"):
 		attack()
-	
+
+	if Input.is_action_just_pressed("roll"):
+		roll()
+
 	if Input.is_action_just_pressed("interact"):
 		interact()
 	
@@ -111,6 +129,40 @@ func attack() -> void:
 func reload_weapon() -> void:
 	if current_weapon and current_weapon.has_method("reload"):
 		current_weapon.reload()
+
+func roll() -> void:
+	if is_rolling or roll_cooldown > 0.0 or not is_alive or not can_move:
+		return
+
+	is_rolling = true
+	can_move = false
+	is_attacking = true
+
+	var roll_dir := facing_direction
+	if roll_dir == Vector2.ZERO:
+		roll_dir = Vector2.DOWN
+
+	original_collision_layer = collision_layer
+	collision_layer = 0
+
+	var tween := create_tween()
+	tween.tween_property(self, "position", position + roll_dir.normalized() * ROLL_DISTANCE, ROLL_DURATION)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_QUAD)
+
+	await tween.finished
+
+	await get_tree().create_timer(IFRAME_DURATION - ROLL_DURATION).timeout
+	collision_layer = original_collision_layer
+
+	is_rolling = false
+	can_move = true
+	is_attacking = false
+	roll_cooldown = ROLL_COOLDOWN
+
+func _process_roll_cooldown(delta: float) -> void:
+	if roll_cooldown > 0.0:
+		roll_cooldown -= delta
 
 func interact() -> void:
 	if nearby_interactables.is_empty():

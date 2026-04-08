@@ -1,0 +1,75 @@
+[gd_scene load_steps=2 format=3 uid="uid://c9d4f6g8h2j3k5l7m0n"]
+
+[ext_resource type="Script" path="res://scripts/ui/result_screen.gd" id="1_result_screen"]
+
+[node name="ResultScreen" type="Control" layer=35]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_direction = 2
+theme_type_variation = ""
+script = ExtResource("1_result_screen")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.7)
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+top = 0.5
+anchor_right = 0.5
+bottom = 0.5
+offset_left = -225.0
+offset_top = -200.0
+offset_right = 225.0
+offset_bottom = 200.0
+grow_direction = 2
+custom_minimum_size = Vector2(450, 400)
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TitleLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 32
+
+[node name="SubTitleLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 16
+
+[node name="HSeparator" type="HSeparator" parent="Panel/VBox"]
+layout_mode = 2
+
+[node name="ItemList" type="ItemList" parent="Panel/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 150)
+
+[node name="TotalValueLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 20
+
+[node name="ButtonBar" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+alignment = 2
+
+[node name="ActionButton1" type="Button" parent="Panel/VBox/ButtonBar"]
+layout_mode = 2
+text = ""
+
+[node name="ActionButton2" type="Button" parent="Panel/VBox/ButtonBar"]
+layout_mode = 2
+text = ""
+visible = false

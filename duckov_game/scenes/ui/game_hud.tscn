@@ -6,26 +6,34 @@
 layer = 10
 script = ExtResource("1_hud")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="InfoPanel" type="MarginContainer" parent="."]
 anchors_preset = 0
-offset_right = 300.0
-offset_bottom = 200.0
+offset_right = 400.0
+offset_bottom = 80.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InfoPanel"]
 layout_mode = 2
 
-[node name="HealthBar" type="ProgressBar" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 20)
+[node name="TopRow" type="HBoxContainer" parent="InfoPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="HealthIcon" type="Label" parent="InfoPanel/VBoxContainer/TopRow"]
+layout_mode = 2
+text = "❤"
+horizontal_alignment = 1
+
+[node name="HealthBar" type="ProgressBar" parent="InfoPanel/VBoxContainer/TopRow"]
+custom_minimum_size = Vector2(200, 18)
 layout_mode = 2
 max_value = 100.0
 value = 100.0
 show_percentage = false
 
-[node name="HealthLabel" type="Label" parent="MarginContainer/VBoxContainer/HealthBar"]
+[node name="HealthLabel" type="Label" parent="InfoPanel/VBoxContainer/TopRow/HealthBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,17 +44,82 @@ text = "100 / 100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AmmoLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Spacer1" type="Control" parent="InfoPanel/VBoxContainer/TopRow"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="AmmoIcon" type="Label" parent="InfoPanel/VBoxContainer/TopRow"]
+layout_mode = 2
+text = "🔫"
+horizontal_alignment = 1
+
+[node name="AmmoLabel" type="Label" parent="InfoPanel/VBoxContainer/TopRow"]
 layout_mode = 2
 text = "Ammo: -- / --"
 
-[node name="WeightLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="BottomRow" type="HBoxContainer" parent="InfoPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="WeightIcon" type="Label" parent="InfoPanel/VBoxContainer/BottomRow"]
+layout_mode = 2
+text = "🎒"
+horizontal_alignment = 1
+
+[node name="WeightLabel" type="Label" parent="InfoPanel/VBoxContainer/BottomRow"]
 layout_mode = 2
 text = "Weight: 0.0 / 50.0"
 
-[node name="MoneyLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Spacer2" type="Control" parent="InfoPanel/VBoxContainer/BottomRow"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="MoneyIcon" type="Label" parent="InfoPanel/VBoxContainer/BottomRow"]
+layout_mode = 2
+text = "💰"
+horizontal_alignment = 1
+
+[node name="MoneyLabel" type="Label" parent="InfoPanel/VBoxContainer/BottomRow"]
 layout_mode = 2
 text = "$ 0"
+
+[node name="Minimap" type="TextureRect" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -160.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 160.0
+grow_horizontal = 0
+custom_minimum_size = Vector2(150, 150)
+
+[node name="DistanceIndicator" type="PanelContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -50.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="DistanceLabel" type="Label" parent="DistanceIndicator"]
+layout_mode = 2
+text = "射程: --"
+horizontal_alignment = 1
+
+[node name="PickupNotifications" type="VBoxContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 160.0
+offset_right = 200.0
+offset_bottom = 360.0
+grow_horizontal = 2
 
 [node name="InteractionPrompt" type="Label" parent="."]
 anchors_preset = 7
@@ -96,9 +169,9 @@ anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -200.0
-offset_top = 10.0
+offset_top = 170.0
 offset_right = -10.0
-offset_bottom = 40.0
+offset_bottom = 200.0
 grow_horizontal = 0
 text = "Loot Bonus: x1.0"
 horizontal_alignment = 2

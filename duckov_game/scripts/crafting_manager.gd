@@ -138,7 +138,8 @@ func cancel_crafting() -> void:
 func dismantle_item(item: InventoryItem) -> Array:
 	var materials: Array = []
 	
-	var result_quantity := max(1, int(item.weight * 2))
+	# 修复4.6.2类型推断严格化问题：显式指定int类型，避免Variant推断
+	var result_quantity: int = max(1, int(item.weight * 2))
 	var material_item = InventoryItem.new()
 	material_item.item_id = "scrap_material"
 	material_item.quantity = result_quantity

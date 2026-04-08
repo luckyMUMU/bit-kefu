@@ -32,6 +32,9 @@ func _ready() -> void:
 	_load_current_settings()
 	visible = false
 
+func _get_settings() -> Node:
+	return get_node_or_null("/root/SettingsManager")
+
 func _setup_signals() -> void:
 	if close_button:
 		close_button.pressed.connect(close)
@@ -59,34 +62,35 @@ func _setup_signals() -> void:
 		invert_y_checkbox.toggled.connect(_on_invert_y_toggled)
 
 func _load_current_settings() -> void:
-	if SettingsManager == null:
+	var settings := _get_settings()
+	if settings == null:
 		return
-	
+
 	if fullscreen_checkbox:
-		fullscreen_checkbox.button_pressed = SettingsManager.is_fullscreen()
+		fullscreen_checkbox.button_pressed = settings.is_fullscreen()
 	if vsync_checkbox:
-		vsync_checkbox.button_pressed = SettingsManager.get_setting("graphics", "vsync")
-	
+		vsync_checkbox.button_pressed = settings.get_setting("graphics", "vsync")
+
 	if music_slider:
-		music_slider.value = SettingsManager.get_music_volume()
+		music_slider.value = settings.get_music_volume()
 	if music_value:
-		music_value.text = "%d%%" % int(SettingsManager.get_music_volume() * 100)
+		music_value.text = "%d%%" % int(settings.get_music_volume() * 100)
 	if sfx_slider:
-		sfx_slider.value = SettingsManager.get_sfx_volume()
+		sfx_slider.value = settings.get_sfx_volume()
 	if sfx_value:
-		sfx_value.text = "%d%%" % int(SettingsManager.get_sfx_volume() * 100)
-	
+		sfx_value.text = "%d%%" % int(settings.get_sfx_volume() * 100)
+
 	if difficulty_option:
-		difficulty_option.selected = SettingsManager.get_difficulty()
+		difficulty_option.selected = settings.get_difficulty()
 	if autosave_checkbox:
-		autosave_checkbox.button_pressed = SettingsManager.get_setting("gameplay", "auto_save")
-	
+		autosave_checkbox.button_pressed = settings.get_setting("gameplay", "auto_save")
+
 	if sensitivity_slider:
-		sensitivity_slider.value = SettingsManager.get_sensitivity()
+		sensitivity_slider.value = settings.get_sensitivity()
 	if sensitivity_value:
-		sensitivity_value.text = "%.1f" % SettingsManager.get_sensitivity()
+		sensitivity_value.text = "%.1f" % settings.get_sensitivity()
 	if invert_y_checkbox:
-		invert_y_checkbox.button_pressed = SettingsManager.get_setting("controls", "invert_y")
+		invert_y_checkbox.button_pressed = settings.get_setting("controls", "invert_y")
 
 func open() -> void:
 	_load_current_settings()
@@ -99,44 +103,53 @@ func close() -> void:
 	closed.emit()
 
 func _reset_settings() -> void:
-	if SettingsManager:
-		SettingsManager.reset_to_defaults()
+	var settings := _get_settings()
+	if settings:
+		settings.reset_to_defaults()
 		_load_current_settings()
 
 func _on_fullscreen_toggled(checked: bool) -> void:
-	if SettingsManager:
-		SettingsManager.set_fullscreen(checked)
+	var settings := _get_settings()
+	if settings:
+		settings.set_fullscreen(checked)
 
 func _on_vsync_toggled(checked: bool) -> void:
-	if SettingsManager:
-		SettingsManager.set_setting("graphics", "vsync", checked)
+	var settings := _get_settings()
+	if settings:
+		settings.set_setting("graphics", "vsync", checked)
 
 func _on_music_slider_changed(value: float) -> void:
-	if SettingsManager:
-		SettingsManager.set_music_volume(value)
+	var settings := _get_settings()
+	if settings:
+		settings.set_music_volume(value)
 	if music_value:
 		music_value.text = "%d%%" % int(value * 100)
 
 func _on_sfx_slider_changed(value: float) -> void:
-	if SettingsManager:
-		SettingsManager.set_sfx_volume(value)
+	var settings := _get_settings()
+	if settings:
+		settings.set_sfx_volume(value)
 	if sfx_value:
 		sfx_value.text = "%d%%" % int(value * 100)
 
 func _on_difficulty_selected(index: int) -> void:
-	if SettingsManager:
-		SettingsManager.set_difficulty(index)
+	var settings := _get_settings()
+	if settings:
+		settings.set_difficulty(index)
 
 func _on_autosave_toggled(checked: bool) -> void:
-	if SettingsManager:
-		SettingsManager.set_setting("gameplay", "auto_save", checked)
+	var settings := _get_settings()
+	if settings:
+		settings.set_setting("gameplay", "auto_save", checked)
 
 func _on_sensitivity_slider_changed(value: float) -> void:
-	if SettingsManager:
-		SettingsManager.set_sensitivity(value)
+	var settings := _get_settings()
+	if settings:
+		settings.set_sensitivity(value)
 	if sensitivity_value:
 		sensitivity_value.text = "%.1f" % value
 
 func _on_invert_y_toggled(checked: bool) -> void:
-	if SettingsManager:
-		SettingsManager.set_setting("controls", "invert_y", checked)
+	var settings := _get_settings()
+	if settings:
+		settings.set_setting("controls", "invert_y", checked)

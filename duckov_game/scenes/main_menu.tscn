@@ -58,6 +58,10 @@ text = "Continue"
 [node name="DifficultyOption" type="OptionButton" parent="VBoxContainer"]
 layout_mode = 2
 
+[node name="TutorialButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "🎯 教学模式"
+
 [node name="SettingsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Settings"

@@ -73,7 +73,7 @@ func play_sfx_at_position(stream: AudioStream, position: Vector2, volume_scale: 
 	if listener:
 		var distance := position.distance_to(listener.global_position)
 		var max_distance := 800.0
-		var attenuation := 1.0 - clamp(distance / max_distance, 0.0, 1.0)
+		var attenuation: float = 1.0 - clamp(distance / max_distance, 0.0, 1.0)
 		volume_scale *= attenuation
 	
 	player.stream = stream

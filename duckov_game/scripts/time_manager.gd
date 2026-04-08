@@ -13,7 +13,8 @@ var boss_wave_triggered: bool = false
 
 signal time_updated(elapsed: float)
 signal loot_bonus_updated(multiplier: float)
-signal boss_wave_triggered
+# Godot 4.6.2 不允许信号与变量同名，重命名信号以避免冲突
+signal boss_wave_activated
 
 func _ready() -> void:
 	zone_entry_time = Time.get_ticks_msec() / 1000.0
@@ -40,7 +41,7 @@ func _check_boss_wave() -> void:
 	
 	if elapsed_time >= boss_wave_time:
 		boss_wave_triggered = true
-		boss_wave_triggered.emit()
+		boss_wave_activated.emit()
 		GameEvents.emit_boss_wave_incoming()
 
 func get_elapsed_time() -> float:

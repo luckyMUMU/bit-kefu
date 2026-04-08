@@ -1,0 +1,85 @@
+[gd_scene load_steps=2 format=3 uid="uid://ct8k2m5n7p3q1r6s9w0y"]
+
+[ext_resource type="Script" path="res://scripts/ui/tutorial_overlay.gd" id="1_tutorial_overlay"]
+
+[node name="TutorialOverlay" type="Control" layer=40]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_direction = 2
+script = ExtResource("1_tutorial_overlay")
+
+[node name="DimOverlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.6)
+mouse_filter = 2
+
+[node name="HighlightBox" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(100, 100)
+
+[node name="PromptPanel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -200.0
+offset_right = 250.0
+offset_bottom = -50.0
+grow_direction = 2
+
+[node name="PromptVBox" type="VBoxContainer" parent="PromptPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TitleLabel" type="Label" parent="PromptPanel/PromptVBox"]
+layout_mode = 2
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 24
+
+[node name="DescriptionLabel" type="RichTextLabel" parent="PromptPanel/PromptVBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 80)
+text = ""
+fit_content = true
+
+[node name="KeyHintLabel" type="Label" parent="PromptPanel/PromptVBox"]
+layout_mode = 2
+text = "按任意键继续..."
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 14
+
+[node name="ProgressContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -30.0
+offset_right = 100.0
+offset_bottom = -10.0
+alignment = 1
+
+[node name="SkipButton" type="Button" parent="."]
+layout_mode = 1
+text = "跳过教程 [ESC]"
+anchors_preset = 12
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -40.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_direction = 2

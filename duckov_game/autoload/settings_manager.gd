@@ -1,5 +1,5 @@
-class_name SettingsManager
 extends Node
+# Godot 4.6.2 不允许 class_name 与 autoload 同名，已通过 autoload 全局访问
 
 enum Difficulty {EASY, NORMAL, HARD}
 
@@ -106,7 +106,8 @@ func _apply_graphics_settings() -> void:
 func _apply_graphics_setting(key: String, value: Variant) -> void:
 	match key:
 		"fullscreen":
-			var window_mode := DisplayServer.WINDOW_MODE_FULLSCREEN if value else DisplayServer.WINDOW_MODE_WINDOWED
+			# Godot 4.6.2 中 get_window().mode 需要 Window.Mode 类型，而非 DisplayServer.WindowMode
+			var window_mode: Window.Mode = Window.MODE_FULLSCREEN if value else Window.MODE_WINDOWED
 			get_window().mode = window_mode
 		"vsync":
 			DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if value else DisplayServer.VSYNC_DISABLED)

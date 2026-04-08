@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8q3xk5m7n2p1r4t6y8w0"]
+
+[ext_resource type="Script" path="res://scripts/ui/pause_menu.gd" id="1_pause_menu"]
+
+[node name="PauseMenu" type="Control" layer=30]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_direction = 2
+theme_type_variation = ""
+script = ExtResource("1_pause_menu")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.5)
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+top = 0.5
+anchor_right = 0.5
+bottom = 0.5
+offset_left = -150.0
+offset_top = -175.0
+offset_right = 150.0
+offset_bottom = 175.0
+grow_direction = 2
+custom_minimum_size = Vector2(300, 350)
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="TitleLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+text = "游戏暂停"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 28
+
+[node name="ResumeButton" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+text = "继续游戏"
+
+[node name="SettingsButton" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+text = "设置"
+
+[node name="MainMenuButton" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+text = "返回主菜单"
+
+[node name="QuitButton" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+text = "退出游戏"

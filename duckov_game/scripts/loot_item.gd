@@ -1,7 +1,9 @@
 class_name LootItem
 extends Area2D
 
-@export var item: InventoryItem
+# Godot 4.6.2 要求 @export 类型必须是内置类型、Resource、Node 或枚举
+# InventoryItem 继承自 RefCounted，不符合 @export 条件，改为普通变量
+var item: InventoryItem
 @export var pickup_range: float = 50.0
 
 var is_being_picked_up: bool = false
