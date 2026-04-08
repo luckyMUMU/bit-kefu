@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://cplayer001"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_player"]
+[ext_resource type="Script" path="res://scripts/health_component.gd" id="2_health"]
+[ext_resource type="Script" path="res://scripts/vision_cone.gd" id="3_vision"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 16.0
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 1
+collision_mask = 14
+script = ExtResource("1_player")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.2, 0.6, 0.8, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2_health")
+
+[node name="WeaponHolder" type="Node2D" parent="."]
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("CircleShape2D_1")
+disabled = true
+
+[node name="VisionCone" type="Node2D" parent="."]
+script = ExtResource("3_vision")

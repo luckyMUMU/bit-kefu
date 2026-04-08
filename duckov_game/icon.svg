@@ -1,0 +1,9 @@
+<svg width="128" height="128" xmlns="http://www.w3.org/2000/svg">
+  <rect width="128" height="128" fill="#1a1a2e"/>
+  <circle cx="64" cy="50" r="30" fill="#ffd700"/>
+  <ellipse cx="64" cy="90" rx="25" ry="15" fill="#ffd700"/>
+  <circle cx="54" cy="45" r="5" fill="#000"/>
+  <circle cx="74" cy="45" r="5" fill="#000"/>
+  <path d="M 54 60 Q 64 70 74 60" stroke="#000" stroke-width="3" fill="none"/>
+  <text x="64" y="120" text-anchor="middle" fill="#fff" font-size="16" font-family="Arial">DUCKOV</text>
+</svg>
