@@ -6,10 +6,14 @@ extends Control
 @onready var settings_button: Button = $VBoxContainer/SettingsButton
 @onready var quit_button: Button = $VBoxContainer/QuitButton
 @onready var title_label: Label = $TitleLabel
+@onready var difficulty_option: OptionButton = $VBoxContainer/DifficultyOption
+
+var settings_ui: SettingsUI
 
 func _ready() -> void:
 	_setup_buttons()
 	_check_save_exists()
+	_setup_difficulty_option()
 	
 	if title_label:
 		title_label.text = "逃离鸭科夫"
@@ -24,6 +28,15 @@ func _setup_buttons() -> void:
 	if quit_button:
 		quit_button.pressed.connect(_on_quit_pressed)
 
+func _setup_difficulty_option() -> void:
+	if difficulty_option:
+		difficulty_option.add_item("Easy")
+		difficulty_option.add_item("Normal")
+		difficulty_option.add_item("Hard")
+		if SettingsManager:
+			difficulty_option.selected = SettingsManager.get_difficulty()
+		difficulty_option.item_selected.connect(_on_difficulty_changed)
+
 func _check_save_exists() -> void:
 	if continue_button:
 		continue_button.visible = SaveManager.has_save()
@@ -37,7 +50,20 @@ func _on_continue_pressed() -> void:
 		GameManager.go_to_base()
 
 func _on_settings_pressed() -> void:
-	pass
+	_show_settings_ui()
+
+func _show_settings_ui() -> void:
+	if settings_ui == null:
+		var settings_scene = preload("res://scenes/ui/settings_ui.tscn")
+		settings_ui = settings_scene.instantiate()
+		add_child(settings_ui)
+	
+	if settings_ui:
+		settings_ui.open()
+
+func _on_difficulty_changed(index: int) -> void:
+	if SettingsManager:
+		SettingsManager.set_difficulty(index)
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()

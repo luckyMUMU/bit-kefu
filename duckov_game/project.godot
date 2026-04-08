@@ -23,6 +23,7 @@ SaveManager="*res://autoload/save_manager.gd"
 AudioManager="*res://autoload/audio_manager.gd"
 UIManager="*res://autoload/ui_manager.gd"
 GameEvents="*res://autoload/game_events.gd"
+SettingsManager="*res://autoload/settings_manager.gd"
 
 [display]
 
