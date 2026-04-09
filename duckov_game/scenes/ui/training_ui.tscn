@@ -1,0 +1,112 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5f7d5e3w8x"]
+
+[ext_resource type="Script" path="res://scripts/ui/training_ui.gd" id="1_kgb5s"]
+
+[node name="TrainingUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -300.0
+offset_right = 400.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="./Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="./Panel/VBoxContainer"]
+layout_mode = 2
+text = "身体训练"
+label_settings = SubResource("LabelSettings_km1q7")
+
+[node name="TrainingPoints" type="Label" parent="./Panel/VBoxContainer"]
+layout_mode = 2
+text = "训练点: 0"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="./Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="StatList" type="VBoxContainer" parent="./Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+min_size = Vector2(200, 0)
+
+[node name="StatTitle" type="Label" parent="./Panel/VBoxContainer/HBoxContainer/StatList"]
+layout_mode = 2
+text = "属性"
+
+[node name="StatButtons" type="VBoxContainer" parent="./Panel/VBoxContainer/HBoxContainer/StatList"]
+layout_mode = 2
+
+[node name="StatDetails" type="VBoxContainer" parent="./Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DetailsTitle" type="Label" parent="./Panel/VBoxContainer/HBoxContainer/StatDetails"]
+layout_mode = 2
+text = "属性详情"
+
+[node name="StatName" type="Label" parent="./Panel/VBoxContainer/HBoxContainer/StatDetails"]
+layout_mode = 2
+text = "选择属性"
+
+[node name="StatValue" type="Label" parent="./Panel/VBoxContainer/HBoxContainer/StatDetails"]
+layout_mode = 2
+text = "当前值: 0"
+
+[node name="StatEffects" type="VBoxContainer" parent="./Panel/VBoxContainer/HBoxContainer/StatDetails"]
+layout_mode = 2
+
+[node name="EffectTitle" type="Label" parent="./Panel/VBoxContainer/HBoxContainer/StatDetails/StatEffects"]
+layout_mode = 2
+text = "效果"
+
+[node name="EffectList" type="VBoxContainer" parent="./Panel/VBoxContainer/HBoxContainer/StatDetails/StatEffects"]
+layout_mode = 2
+
+[node name="TrainingCost" type="Label" parent="./Panel/VBoxContainer/HBoxContainer/StatDetails"]
+layout_mode = 2
+text = "训练成本: $0"
+
+[node name="TrainButton" type="Button" parent="./Panel/VBoxContainer/HBoxContainer/StatDetails"]
+layout_mode = 2
+text = "训练"
+enabled = false
+
+[node name="CloseButton" type="Button" parent="./Panel/VBoxContainer"]
+layout_mode = 2
+text = "关闭"
+
+[node name="TrainingUI" type="Script" parent="."]
+script = ExtResource("1_kgb5s")
+
+[sub_resource type="LabelSettings" id="LabelSettings_km1q7"]
+font_size = 24
+font_color = Color(1, 1, 1, 1)

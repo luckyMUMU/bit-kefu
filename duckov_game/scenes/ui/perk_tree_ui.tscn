@@ -1,0 +1,118 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8a3c5c1v53j"]
+
+[ext_resource type="Script" path="res://scripts/ui/perk_tree_ui.gd" id="1_kgb5s"]
+
+[node name="PerkTreeUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -300.0
+offset_right = 400.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="./Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="./Panel/VBoxContainer"]
+layout_mode = 2
+text = "技能树"
+label_settings = SubResource("LabelSettings_km1q7")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="./Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="BranchList" type="VBoxContainer" parent="./Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+min_size = Vector2(200, 0)
+
+[node name="BranchTitle" type="Label" parent="./Panel/VBoxContainer/HBoxContainer/BranchList"]
+layout_mode = 2
+text = "技能分支"
+
+[node name="BranchButtons" type="VBoxContainer" parent="./Panel/VBoxContainer/HBoxContainer/BranchList"]
+layout_mode = 2
+
+[node name="PerkTree" type="VBoxContainer" parent="./Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PerkTitle" type="Label" parent="./Panel/VBoxContainer/HBoxContainer/PerkTree"]
+layout_mode = 2
+text = "技能节点"
+
+[node name="PerkGrid" type="GridContainer" parent="./Panel/VBoxContainer/HBoxContainer/PerkTree"]
+layout_mode = 2
+columns = 3
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PerkDetails" type="VBoxContainer" parent="./Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+min_size = Vector2(200, 0)
+
+[node name="DetailsTitle" type="Label" parent="./Panel/VBoxContainer/HBoxContainer/PerkDetails"]
+layout_mode = 2
+text = "技能详情"
+
+[node name="PerkName" type="Label" parent="./Panel/VBoxContainer/HBoxContainer/PerkDetails"]
+layout_mode = 2
+text = "选择技能"
+
+[node name="PerkDescription" type="Label" parent="./Panel/VBoxContainer/HBoxContainer/PerkDetails"]
+layout_mode = 2
+text = ""
+label_settings = SubResource("LabelSettings_u80z5")
+
+[node name="PerkCost" type="Label" parent="./Panel/VBoxContainer/HBoxContainer/PerkDetails"]
+layout_mode = 2
+text = ""
+
+[node name="UnlockButton" type="Button" parent="./Panel/VBoxContainer/HBoxContainer/PerkDetails"]
+layout_mode = 2
+text = "解锁"
+enabled = false
+
+[node name="CloseButton" type="Button" parent="./Panel/VBoxContainer"]
+layout_mode = 2
+text = "关闭"
+
+[node name="PerkTreeUI" type="Script" parent="."]
+script = ExtResource("1_kgb5s")
+
+[sub_resource type="LabelSettings" id="LabelSettings_km1q7"]
+font_size = 24
+font_color = Color(1, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_u80z5"]
+word_wrap = true
+font_size = 14
+font_color = Color(1, 1, 1, 1)

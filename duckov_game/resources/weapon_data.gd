@@ -3,6 +3,7 @@ extends Resource
 
 enum WeaponType {MELEE, RANGED}
 enum WeaponCategory {PISTOL, SMG, RIFLE, SHOTGUN, SNIPER, MELEE, THROWABLE}
+enum ModificationType {BARREL, STOCK, GRIP, SIGHT, MAGAZINE, MUZZLE, FOREGRIP, HANDGUARD}
 
 @export var weapon_id: String = ""
 @export var weapon_name: String = ""
@@ -26,6 +27,11 @@ enum WeaponCategory {PISTOL, SMG, RIFLE, SHOTGUN, SNIPER, MELEE, THROWABLE}
 @export var attachment_slots: Array[String] = []
 @export var base_attachments: Array[String] = []
 
+# 改装相关
+var modifications: Dictionary = {}
+var modification_level: int = 0
+var max_modification_level: int = 5
+
 func get_dps() -> float:
 	return damage * fire_rate
 
@@ -34,3 +40,41 @@ func get_effective_range() -> float:
 
 func is_silent() -> bool:
 	return noise_level < 0.3
+
+func apply_modification(mod_type: ModificationType, modifier: Dictionary) -> void:
+	# 应用改装效果
+	for stat_name in modifier:
+		if stat_name in self:
+			self[stat_name] += modifier[stat_name]
+	
+	modifications[mod_type] = modifier
+	modification_level += 1
+
+func remove_modification(mod_type: ModificationType) -> void:
+	if mod_type in modifications:
+		var modifier = modifications[mod_type]
+		# 移除改装效果
+		for stat_name in modifier:
+			if stat_name in self:
+				self[stat_name] -= modifier[stat_name]
+		
+		modifications.erase(mod_type)
+		modification_level -= 1
+
+func get_modification_slot_count() -> int:
+	return attachment_slots.size()
+
+func get_available_modification_slots() -> Array[String]:
+	var available: Array[String] = []
+	for slot in attachment_slots:
+		if slot not in modifications.keys():
+			available.append(slot)
+	return available
+
+func get_modification_cost(level: int) -> int:
+	# 改装成本随等级增加
+	return int(pow(level + 1, 2) * 500)
+
+func can_modify() -> bool:
+	return modification_level < max_modification_level
+

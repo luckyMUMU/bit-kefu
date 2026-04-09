@@ -96,6 +96,9 @@ func _spawn_loot_items() -> void:
 	contained_items.clear()
 
 func _get_current_time_bonus() -> float:
+	var time_manager = get_tree().current_scene.get_node_or_null("TimeManager")
+	if time_manager and time_manager.has_method("get_current_multiplier"):
+		return time_manager.get_current_multiplier()
 	return 1.0
 
 func reset() -> void:

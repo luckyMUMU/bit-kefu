@@ -1,8 +1,8 @@
 class_name EnemyData
 extends Resource
 
-enum EnemyType {NORMAL, ELITE, BOSS}
-enum BehaviorType {PATROL, CHASE, RANGED, HYBRID}
+enum EnemyType {NORMAL, HEAVY, SNIPER, ELITE, BOSS}
+enum BehaviorType {PATROL, CHASE, RANGED, HYBRID, SNIPER}
 
 @export var enemy_id: String = ""
 @export var enemy_name: String = ""
@@ -23,6 +23,22 @@ enum BehaviorType {PATROL, CHASE, RANGED, HYBRID}
 @export var death_effect: PackedScene
 @export var attack_warning_duration: float = 0.5
 @export var has_attack_warning: bool = false
+@export var accuracy: float = 0.8
+@export var fire_rate: float = 1.0
+@export var bullet_speed: float = 300.0
+@export var reload_time: float = 2.0
+@export var magazine_size: int = 10
+@export var current_ammo: int = 10
+@export var is_shielded: bool = false
+@export var shield_strength: float = 0.0
+@export var critical_chance: float = 0.0
+@export var critical_multiplier: float = 1.5
+@export var detection_angle: float = 180.0
+@export var patrol_speed: float = 50.0
+@export var chase_speed: float = 100.0
+@export var retreat_distance: float = 100.0
+@export var cover_chance: float = 0.0
+@export var flanking_chance: float = 0.0
 
 func get_random_money_drop() -> int:
 	return randi_range(money_drop_min, money_drop_max)

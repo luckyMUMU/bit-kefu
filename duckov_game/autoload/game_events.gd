@@ -19,6 +19,29 @@ signal on_perk_unlocked(perk_id: String)
 signal on_recipe_unlocked(recipe_id: String)
 signal on_facility_built(facility_id: String)
 signal on_money_changed(new_amount: int, old_amount: int)
+signal on_interactable_available(interactable: Node, name: String)
+signal on_interactable_unavailable(interactable: Node)
+
+# 新系统事件
+signal on_training_points_gained(points: int)
+signal on_weapon_modified(weapon_id: String, mod_type: int)
+signal on_armor_modified(armor_id: String, mod_type: int)
+
+# 天气系统事件
+signal on_weather_changed(weather_type: int)
+signal on_time_of_day_changed(time_of_day: int)
+signal on_weather_effects_updated(effects: Dictionary)
+
+# 地图系统事件
+signal on_map_unlocked(map_id: String)
+signal on_map_enter(map_id: String)
+signal on_map_exit(map_id: String)
+
+# Boss系统事件
+signal on_boss_spawned(boss_id: String)
+signal on_boss_defeated(boss_id: String)
+signal on_boss_challenge_started(boss_id: String)
+signal on_boss_challenge_completed(boss_id: String)
 
 func emit_player_died() -> void:
 	on_player_died.emit()
@@ -78,3 +101,52 @@ func emit_facility_built(facility_id: String) -> void:
 
 func emit_money_changed(new_amount: int, old_amount: int) -> void:
 	on_money_changed.emit(new_amount, old_amount)
+
+func emit_interactable_available(interactable: Node, name: String) -> void:
+	on_interactable_available.emit(interactable, name)
+
+func emit_interactable_unavailable(interactable: Node) -> void:
+	on_interactable_unavailable.emit(interactable)
+
+# 新系统事件触发方法
+func emit_training_points_gained(points: int) -> void:
+	on_training_points_gained.emit(points)
+
+func emit_weapon_modified(weapon_id: String, mod_type: int) -> void:
+	on_weapon_modified.emit(weapon_id, mod_type)
+
+func emit_armor_modified(armor_id: String, mod_type: int) -> void:
+	on_armor_modified.emit(armor_id, mod_type)
+
+# 天气系统事件触发方法
+func emit_weather_changed(weather_type: int) -> void:
+	on_weather_changed.emit(weather_type)
+
+func emit_time_of_day_changed(time_of_day: int) -> void:
+	on_time_of_day_changed.emit(time_of_day)
+
+func emit_weather_effects_updated(effects: Dictionary) -> void:
+	on_weather_effects_updated.emit(effects)
+
+# 地图系统事件触发方法
+func emit_map_unlocked(map_id: String) -> void:
+	on_map_unlocked.emit(map_id)
+
+func emit_map_enter(map_id: String) -> void:
+	on_map_enter.emit(map_id)
+
+func emit_map_exit(map_id: String) -> void:
+	on_map_exit.emit(map_id)
+
+# Boss系统事件触发方法
+func emit_boss_spawned(boss_id: String) -> void:
+	on_boss_spawned.emit(boss_id)
+
+func emit_boss_defeated(boss_id: String) -> void:
+	on_boss_defeated.emit(boss_id)
+
+func emit_boss_challenge_started(boss_id: String) -> void:
+	on_boss_challenge_started.emit(boss_id)
+
+func emit_boss_challenge_completed(boss_id: String) -> void:
+	on_boss_challenge_completed.emit(boss_id)

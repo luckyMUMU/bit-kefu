@@ -38,6 +38,11 @@ func _ready() -> void:
 		interaction_area.body_exited.connect(_on_interaction_area_body_exited)
 		interaction_area.area_entered.connect(_on_interaction_area_area_entered)
 		interaction_area.area_exited.connect(_on_interaction_area_area_exited)
+	
+	# 监听天气和时间变化
+	GameEvents.on_weather_effects_updated.connect(_on_weather_effects_updated)
+	# 初始应用天气效果
+	_on_weather_effects_updated(WeatherManager.get_weather_effects())
 
 func _physics_process(delta: float) -> void:
 	if not is_alive or not can_move:
@@ -172,8 +177,37 @@ func die() -> void:
 	if current_weapon:
 		current_weapon.drop()
 	
+	# 处理死亡时的物品丢失，保留安全槽物品
+	_handle_death_items()
+	
 	died.emit()
 	GameManager.player_died()
+
+func _handle_death_items() -> void:
+	# 收集所有非安全槽物品
+	var items_to_drop := GameManager.player_data.inventory.items.duplicate()
+	var safe_slot_item := GameManager.player_data.inventory.safe_slot_item
+	
+	# 清空普通物品，但保留安全槽物品
+	GameManager.player_data.inventory.items.clear()
+	GameManager.player_data.inventory.recalculate_weight()
+	
+	# 创建尸体记录
+	if items_to_drop.size() > 0:
+		var corpse_items := []
+		for item in items_to_drop:
+			corpse_items.append(item.serialize())
+		
+		GameManager.player_data.add_corpse(
+			GameManager.player_data.current_zone,
+			global_position,
+			corpse_items
+		)
+	
+	# 确保安全槽物品仍然存在
+	if safe_slot_item:
+		GameManager.player_data.inventory.safe_slot_item = safe_slot_item
+		GameManager.player_data.inventory.recalculate_weight()
 
 func _on_died() -> void:
 	die()
@@ -210,3 +244,18 @@ func is_overburdened() -> bool:
 
 func get_nearby_interactables() -> Array:
 	return nearby_interactables.duplicate()
+
+func get_inventory() -> Inventory:
+	return GameManager.player_data.inventory
+
+func _on_weather_effects_updated(effects: Dictionary) -> void:
+	# 应用天气和时间效果到玩家
+	var base_move_speed := 200.0  # 基础移动速度
+	var base_vision_range := 300.0  # 基础视野范围
+	
+	# 更新移动速度
+	move_speed = base_move_speed * effects.movement_modifier
+	
+	# 更新视野（如果有视野系统）
+	if vision_cone and vision_cone.has_method("set_cone_radius"):
+		vision_cone.set_cone_radius(base_vision_range * effects.vision_modifier)

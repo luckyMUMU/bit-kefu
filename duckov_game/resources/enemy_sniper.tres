@@ -1,0 +1,37 @@
+[gd_resource type="EnemyData" script_class="EnemyData" load_steps=2 format=3 uid="uid://d5k4f72k8l7z"]
+
+[ext_resource type="Script" path="res://resources/enemy_data.gd" id="1_ik4o0"]
+
+[resource]
+script = ExtResource( "1_ik4o0" )
+enemy_id = "sniper"
+enemy_name = "狙击手"
+description = "远程攻击敌人，伤害高，精度高，但射速慢，生命值低"
+enemy_type = 2
+behavior_type = 4
+max_health = 30.0
+damage = 30.0
+move_speed = 60.0
+attack_range = 600.0
+detection_range = 800.0
+attack_cooldown = 2.0
+experience_reward = 40
+money_drop_min = 20
+money_drop_max = 50
+loot_table = [ { "chance": 0.7, "item_id": "sniper_ammo", "min_quantity": 1, "max_quantity": 3 }, { "chance": 0.4, "item_id": "scope_attachment", "min_quantity": 1, "max_quantity": 1 } ]
+accuracy = 0.95
+fire_rate = 0.3
+bullet_speed = 500.0
+reload_time = 4.0
+magazine_size = 5
+current_ammo = 5
+is_shielded = false
+shield_strength = 0.0
+critical_chance = 0.3
+critical_multiplier = 2.0
+detection_angle = 90.0
+patrol_speed = 25.0
+chase_speed = 60.0
+retreat_distance = 200.0
+cover_chance = 0.4
+flanking_chance = 0.2

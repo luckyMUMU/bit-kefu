@@ -104,14 +104,18 @@ func _show_item_context_menu(item: InventoryItem) -> void:
 	popup.add_item("Use", 0)
 	popup.add_item("Drop", 1)
 	popup.add_item("Move to Safe Slot", 2)
-	popup.add_item("Cancel", 3)
+	popup.add_item("Sell", 3)
+	popup.add_item("Dismantle", 4)
+	popup.add_item("Cancel", 5)
 	
 	popup.id_pressed.connect(func(id: int):
 		match id:
 			0: _use_item(item)
 			1: _drop_item(item)
 			2: _move_to_safe_slot(item)
-			3: pass
+			3: _sell_item(item)
+			4: _dismantle_item(item)
+			5: pass
 		popup.queue_free()
 	)
 	
@@ -130,4 +134,17 @@ func _move_to_safe_slot(item: InventoryItem) -> void:
 	if inventory and inventory.safe_slot_item == null:
 		inventory.remove_item(item)
 		inventory.set_safe_slot_item(item)
+		_refresh_inventory()
+
+func _sell_item(item: InventoryItem) -> void:
+	if inventory:
+		var sell_value = item.get_total_value()
+		GameManager.player_data.add_money(sell_value)
+		inventory.remove_item(item)
+		_refresh_inventory()
+
+func _dismantle_item(item: InventoryItem) -> void:
+	if inventory:
+		var crafting_manager = GameManager.crafting_manager
+		crafting_manager.dismantle_item(item)
 		_refresh_inventory()

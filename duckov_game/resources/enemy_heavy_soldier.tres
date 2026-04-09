@@ -1,0 +1,37 @@
+[gd_resource type="EnemyData" script_class="EnemyData" load_steps=2 format=3 uid="uid://c5k4f72k8l7y"]
+
+[ext_resource type="Script" path="res://resources/enemy_data.gd" id="1_ik4o0"]
+
+[resource]
+script = ExtResource( "1_ik4o0" )
+enemy_id = "heavy_soldier"
+enemy_name = "重装兵"
+description = "拥有护盾的重装敌人，生命值高，攻击力强，但移动速度较慢"
+enemy_type = 1
+behavior_type = 1
+max_health = 150.0
+damage = 20.0
+move_speed = 70.0
+attack_range = 60.0
+detection_range = 250.0
+attack_cooldown = 1.5
+experience_reward = 30
+money_drop_min = 15
+money_drop_max = 40
+loot_table = [ { "chance": 0.6, "item_id": "rifle_ammo", "min_quantity": 3, "max_quantity": 8 }, { "chance": 0.3, "item_id": "armor_piece", "min_quantity": 1, "max_quantity": 1 } ]
+accuracy = 0.6
+fire_rate = 0.8
+bullet_speed = 250.0
+reload_time = 3.0
+magazine_size = 8
+current_ammo = 8
+is_shielded = true
+shield_strength = 50.0
+critical_chance = 0.15
+critical_multiplier = 1.5
+detection_angle = 120.0
+patrol_speed = 30.0
+chase_speed = 70.0
+retreat_distance = 0.0
+cover_chance = 0.1
+flanking_chance = 0.05

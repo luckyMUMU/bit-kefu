@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8a9b3e832"]
+
+[ext_resource type="Script" path="res://scripts/corpse.gd" id="1_44w2n"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/player.png" id="2_izw5h"]
+
+[node name="Corpse" type="StaticBody2D"]
+script = ExtResource( "1_44w2n" )
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource( "2_izw5h" )
+modulate = Color(0.5, 0.5, 0.5, 0.8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( "CollisionShape2D_1" )
+
+[node name="InteractionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="./InteractionArea"]
+shape = SubResource( "CollisionShape2D_2" )
+
+[sub_resource type="CircleShape2D" id="CollisionShape2D_1"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CollisionShape2D_2"]
+radius = 32.0

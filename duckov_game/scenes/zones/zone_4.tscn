@@ -1,0 +1,176 @@
+[gd_scene load_steps=6 format=3 uid="uid://czone004"]
+
+[ext_resource type="Script" path="res://scripts/zones/combat_zone.gd" id="1_zone"]
+[ext_resource type="PackedScene" uid="uid://cplayer001" path="res://scenes/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://chud001" path="res://scenes/ui/game_hud.tscn" id="3_hud"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_extraction"]
+size = Vector2(80, 80)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_loot"]
+radius = 20.0
+
+[node name="CombatZone" type="Node2D"]
+script = ExtResource("1_zone")
+zone_id = "zone_4"
+zone_name = "军事基地"
+hazards_enabled = true
+hazard_spawn_points = [Vector2(300, 200), Vector2(500, 300), Vector2(700, 400), Vector2(400, 500), Vector2(600, 200), Vector2(200, 300), Vector2(800, 300), Vector2(500, 100)]
+
+[node name="TileMap" type="TileMap" parent="."]
+format = 1
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(100, 100)
+
+[node name="ExtractionZone" type="Area2D" parent="."]
+position = Vector2(800, 500)
+collision_layer = 256
+collision_mask = 1
+script = load("res://scripts/extraction_point.gd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExtractionZone"]
+shape = SubResource("RectangleShape2D_extraction")
+
+[node name="Sprite2D" type="Sprite2D" parent="ExtractionZone"]
+modulate = Color(0.2, 0.8, 0.2, 0.5)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ExtractionZone"]
+emitting = true
+
+[node name="LootContainer" type="Area2D" parent="."]
+position = Vector2(300, 200)
+collision_layer = 32
+collision_mask = 1
+script = load("res://scripts/loot_container.gd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LootContainer"]
+shape = SubResource("CircleShape2D_loot")
+
+[node name="Sprite2D" type="Sprite2D" parent="LootContainer"]
+modulate = Color(0.6, 0.4, 0.2, 1)
+
+[node name="InteractionLabel" type="Label" parent="LootContainer"]
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = -20.0
+text = "[E] Search"
+horizontal_alignment = 1
+
+[node name="LootContainer2" type="Area2D" parent="."]
+position = Vector2(500, 300)
+collision_layer = 32
+collision_mask = 1
+script = load("res://scripts/loot_container.gd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LootContainer2"]
+shape = SubResource("CircleShape2D_loot")
+
+[node name="Sprite2D" type="Sprite2D" parent="LootContainer2"]
+modulate = Color(0.6, 0.4, 0.2, 1)
+
+[node name="InteractionLabel" type="Label" parent="LootContainer2"]
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = -20.0
+text = "[E] Search"
+horizontal_alignment = 1
+
+[node name="LootContainer3" type="Area2D" parent="."]
+position = Vector2(700, 400)
+collision_layer = 32
+collision_mask = 1
+script = load("res://scripts/loot_container.gd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LootContainer3"]
+shape = SubResource("CircleShape2D_loot")
+
+[node name="Sprite2D" type="Sprite2D" parent="LootContainer3"]
+modulate = Color(0.6, 0.4, 0.2, 1)
+
+[node name="InteractionLabel" type="Label" parent="LootContainer3"]
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = -20.0
+text = "[E] Search"
+horizontal_alignment = 1
+
+[node name="LootContainer4" type="Area2D" parent="."]
+position = Vector2(400, 500)
+collision_layer = 32
+collision_mask = 1
+script = load("res://scripts/loot_container.gd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LootContainer4"]
+shape = SubResource("CircleShape2D_loot")
+
+[node name="Sprite2D" type="Sprite2D" parent="LootContainer4"]
+modulate = Color(0.6, 0.4, 0.2, 1)
+
+[node name="InteractionLabel" type="Label" parent="LootContainer4"]
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = -20.0
+text = "[E] Search"
+horizontal_alignment = 1
+
+[node name="LootContainer5" type="Area2D" parent="."]
+position = Vector2(600, 200)
+collision_layer = 32
+collision_mask = 1
+script = load("res://scripts/loot_container.gd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LootContainer5"]
+shape = SubResource("CircleShape2D_loot")
+
+[node name="Sprite2D" type="Sprite2D" parent="LootContainer5"]
+modulate = Color(0.6, 0.4, 0.2, 1)
+
+[node name="InteractionLabel" type="Label" parent="LootContainer5"]
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = -20.0
+text = "[E] Search"
+horizontal_alignment = 1
+
+[node name="EnemySpawns" type="Node2D" parent="."]
+
+[node name="EnemySpawn1" type="Marker2D" parent="EnemySpawns"]
+position = Vector2(400, 300)
+
+[node name="EnemySpawn2" type="Marker2D" parent="EnemySpawns"]
+position = Vector2(600, 200)
+
+[node name="EnemySpawn3" type="Marker2D" parent="EnemySpawns"]
+position = Vector2(500, 400)
+
+[node name="EnemySpawn4" type="Marker2D" parent="EnemySpawns"]
+position = Vector2(300, 400)
+
+[node name="EnemySpawn5" type="Marker2D" parent="EnemySpawns"]
+position = Vector2(700, 300)
+
+[node name="EnemySpawn6" type="Marker2D" parent="EnemySpawns"]
+position = Vector2(200, 300)
+
+[node name="EnemySpawn7" type="Marker2D" parent="EnemySpawns"]
+position = Vector2(600, 400)
+
+[node name="EnemySpawn8" type="Marker2D" parent="EnemySpawns"]
+position = Vector2(800, 400)
+
+[node name="EnemySpawn9" type="Marker2D" parent="EnemySpawns"]
+position = Vector2(400, 100)
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(100, 100)
+
+[node name="GameHUD" parent="." instance=ExtResource("3_hud")]
+
+[node name="TimeManager" type="Node" parent="."]
+script = load("res://scripts/time_manager.gd")

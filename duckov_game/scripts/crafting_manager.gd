@@ -138,11 +138,22 @@ func cancel_crafting() -> void:
 func dismantle_item(item: InventoryItem) -> Array:
 	var materials: Array = []
 	
-	var result_quantity := max(1, int(item.weight * 2))
+	# 根据物品稀有度和价值计算拆解获得的材料数量
+	var rarity_multiplier = 1.0
+	match item.rarity.to_lower():
+		"common": rarity_multiplier = 1.0
+		"uncommon": rarity_multiplier = 1.5
+		"rare": rarity_multiplier = 2.0
+		"epic": rarity_multiplier = 2.5
+		"legendary": rarity_multiplier = 3.0
+	
+	var result_quantity := max(1, int((item.weight * 2 + item.value * 0.01) * rarity_multiplier))
 	var material_item = InventoryItem.new()
 	material_item.item_id = "scrap_material"
 	material_item.quantity = result_quantity
 	material_item.item_name = "Scrap Material"
+	material_item.value = 10
+	material_item.weight = 0.5
 	
 	materials.append(material_item)
 	GameManager.player_data.inventory.remove_item(item)

@@ -1,0 +1,114 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8a3c5c1v53j"]
+
+[ext_resource type="Script" path="res://scripts/ui/modification_ui.gd" id="1_kgb5s"]
+
+[node name="ModificationUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -300.0
+offset_right = 400.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="./Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="./Panel/VBoxContainer"]
+layout_mode = 2
+text = "装备改装"
+label_settings = SubResource("LabelSettings_km1q7")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="./Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ItemList" type="VBoxContainer" parent="./Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+min_size = Vector2(200, 0)
+
+[node name="ItemTitle" type="Label" parent="./Panel/VBoxContainer/HBoxContainer/ItemList"]
+layout_mode = 2
+text = "可改装物品"
+
+[node name="ItemButtons" type="VBoxContainer" parent="./Panel/VBoxContainer/HBoxContainer/ItemList"]
+layout_mode = 2
+
+[node name="ModificationDetails" type="VBoxContainer" parent="./Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DetailsTitle" type="Label" parent="./Panel/VBoxContainer/HBoxContainer/ModificationDetails"]
+layout_mode = 2
+text = "改装详情"
+
+[node name="ItemName" type="Label" parent="./Panel/VBoxContainer/HBoxContainer/ModificationDetails"]
+layout_mode = 2
+text = "选择物品"
+
+[node name="ItemStats" type="VBoxContainer" parent="./Panel/VBoxContainer/HBoxContainer/ModificationDetails"]
+layout_mode = 2
+
+[node name="StatsTitle" type="Label" parent="./Panel/VBoxContainer/HBoxContainer/ModificationDetails/ItemStats"]
+layout_mode = 2
+text = "当前属性"
+
+[node name="StatList" type="VBoxContainer" parent="./Panel/VBoxContainer/HBoxContainer/ModificationDetails/ItemStats"]
+layout_mode = 2
+
+[node name="ModificationOptions" type="VBoxContainer" parent="./Panel/VBoxContainer/HBoxContainer/ModificationDetails"]
+layout_mode = 2
+
+[node name="ModTitle" type="Label" parent="./Panel/VBoxContainer/HBoxContainer/ModificationDetails/ModificationOptions"]
+layout_mode = 2
+text = "可应用的改装"
+
+[node name="ModButtons" type="VBoxContainer" parent="./Panel/VBoxContainer/HBoxContainer/ModificationDetails/ModificationOptions"]
+layout_mode = 2
+
+[node name="ModCost" type="Label" parent="./Panel/VBoxContainer/HBoxContainer/ModificationDetails"]
+layout_mode = 2
+text = "改装成本: $0"
+
+[node name="ModifyButton" type="Button" parent="./Panel/VBoxContainer/HBoxContainer/ModificationDetails"]
+layout_mode = 2
+text = "改装"
+enabled = false
+
+[node name="CloseButton" type="Button" parent="./Panel/VBoxContainer"]
+layout_mode = 2
+text = "关闭"
+
+[node name="ModificationUI" type="Script" parent="."]
+script = ExtResource("1_kgb5s")
+
+[sub_resource type="LabelSettings" id="LabelSettings_km1q7"]
+font_size = 24
+font_color = Color(1, 1, 1, 1)

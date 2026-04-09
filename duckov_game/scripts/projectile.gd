@@ -11,6 +11,7 @@ var owner_entity: Node2D = null
 var direction: Vector2 = Vector2.RIGHT
 var distance_traveled: float = 0.0
 var hit_count: int = 0
+var ammo_data: AmmoData = null
 
 signal hit_target(target: Node2D, damage: float)
 signal projectile_expired
@@ -78,19 +79,39 @@ func _on_area_entered(area: Area2D) -> void:
 func _apply_damage(target: Node2D) -> void:
 	var final_damage := damage
 	
+	# 应用弹药数据的伤害乘数
+	if ammo_data:
+		final_damage = ammo_data.get_effective_damage(damage)
+	
 	if owner_entity and owner_entity.has_method("get"):
 		var stats = owner_entity.get("stats")
 		if stats and stats is PlayerStats:
-			final_damage = stats.get_total_damage(damage)
+			final_damage = stats.get_total_damage(final_damage)
 			var crit := stats.roll_critical()
 			if crit.critical:
 				final_damage *= crit.multiplier
 	
-	if target.has_method("take_damage"):
-		target.take_damage(final_damage, owner_entity)
+	# 应用护甲减免
+	var armor_reduction := 0.0
+	if target.has_method("get_armor_protection"):
+		armor_reduction = target.get_armor_protection()
 	elif target.has_node("HealthComponent"):
 		var health := target.get_node("HealthComponent")
-		health.take_damage(final_damage, owner_entity)
+		if health.has_method("get_armor_protection"):
+			armor_reduction = health.get_armor_protection()
+	
+	# 考虑弹药的穿透力
+	if ammo_data:
+		armor_reduction *= (1.0 - ammo_data.get_penetration_power() * 0.1)
+	
+	final_damage *= (1.0 - armor_reduction)
+	final_damage = max(1.0, final_damage) # 确保至少造成1点伤害
+	
+	if target.has_method("take_damage"):
+		target.take_damage(final_damage, owner_entity, ammo_data)
+	elif target.has_node("HealthComponent"):
+		var health := target.get_node("HealthComponent")
+		health.take_damage(final_damage, owner_entity, ammo_data)
 	
 	hit_target.emit(target, final_damage)
 	_spawn_hit_effect(target.global_position)
