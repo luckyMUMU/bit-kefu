@@ -13,7 +13,7 @@ config_version=5
 config/name="Duckov"
 config/description="Escape from Duckov - A top-down PVE extraction shooter with RPG growth and base building"
 run/main_scene="res://scenes/main_menu.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
+config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
